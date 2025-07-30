@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { LayoutDashboard, PlusCircle, Package, Users, LogOut } from 'lucide-react'; 
-
-// Import the new separate components
 import AddProductPage from './components/AddProductPage';
 import ShowAllProductsPage from './components/ShowAllProductsPage';
 import ShowAllUsersPage from './components/ShowAllUsersPage';

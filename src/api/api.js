@@ -31,6 +31,7 @@ export const registerApi = (data) => Api.post('/api/signup', data);
 export const profileApi = (id) => Api.post(`/api/profile/${id}`, );
 
 //product
+export const createProductApi = (data) => ApiWithFormData.post('/api/products', data);
 export const getAllProductApi = () => Api.get('/api/products');
 export const getProductByIDApi = (id) => Api.get(`/api/products/${id}`);
 

@@ -1,14 +1,33 @@
-import React from 'react';
-import { Package } from 'lucide-react'; // Icon for products
+import React, { useEffect, useState } from 'react';
+import { getAllProductApi } from '../../api/api'; 
 
 const ShowAllProductsPage = () => {
-  // Dummy product data for demonstration
-  const dummyProducts = [
-    { _id: '1', title: 'High-Waisted Trousers', productPrice: '2,000', discountPrice: '1,000', image: 'https://placehold.co/100x100/6b46c1/ffffff?text=Product1' },
-    { _id: '2', title: 'Hand-Painted Ceramic Mug', productPrice: '300', discountPrice: '50', image: 'https://placehold.co/100x100/6b46c1/ffffff?text=Product2' },
-    { _id: '3', title: 'Macrame Wall Hanging', productPrice: '500', discountPrice: '50', image: 'https://placehold.co/100x100/6b46c1/ffffff?text=Product3' },
-    { _id: '4', title: 'Handwoven Rattan Basket', productPrice: '800', discountPrice: '150', image: 'https://placehold.co/100x100/6b46c1/ffffff?text=Product4' },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await getAllProductApi();
+        if (res.data.success) {
+          setProducts(res.data.products);
+        } else {
+          setError('Failed to fetch products');
+        }
+      } catch (err) {
+        setError('Error fetching products');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) return <p className="text-center p-6">Loading products...</p>;
+  if (error) return <p className="text-center p-6 text-red-600">{error}</p>;
 
   return (
     <div className="p-8 bg-white rounded-xl shadow-md">
@@ -25,7 +44,7 @@ const ShowAllProductsPage = () => {
             </tr>
           </thead>
           <tbody>
-            {dummyProducts.map((product) => (
+            {products.map((product) => (
               <tr key={product._id} className="border-b border-gray-200 hover:bg-gray-50">
                 <td className="py-3 px-4">
                   <img src={product.image} alt={product.title} className="w-12 h-12 object-cover rounded-md" />
@@ -42,7 +61,6 @@ const ShowAllProductsPage = () => {
           </tbody>
         </table>
       </div>
-      {/* In a real app, you'd fetch data using getAllProductApi and display it here */}
     </div>
   );
 };
