@@ -30,7 +30,13 @@ const Login = () => {
 
       localStorage.setItem('token', res.data.token); // Store token
       localStorage.setItem('user', JSON.stringify(res.data.userData)); // Optional: store user info
-     navigate('/products') // Wait 1s before redirect
+      // After successful login:
+      if (res.data.userData.isAdmin) {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/products');
+      }
+
       window.location.reload()
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
