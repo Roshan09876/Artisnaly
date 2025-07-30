@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import Contactus from './pages/Contactus';
 import AboutUs from './pages/AboutUs';
 import Products from './pages/Products';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 
 function App() {
@@ -15,13 +17,15 @@ function App() {
     <div className="App">
       <Navbar />
       {/* Offset for fixed navbar */}
-      <div className="pt-16 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+      <div className="pt-16">
         <ToastContainer position='bottom-right' />
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/products' element={<Products />} />
           <Route path='/about' element={<AboutUs />} />
           <Route path='/contact' element={<Contactus />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
         </Routes>
         <Footer />
       </div>
