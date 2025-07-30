@@ -13,7 +13,7 @@ const App = () => {
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <Sparkles size={80} className="text-white mx-auto mb-6 animate-pulse" />
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-up">
-            Welcome to <span className="text-yellow-300">MyShop</span>
+            Welcome to <span className="text-yellow-300">Artisanly</span>
           </h1>
           <p className="text-xl sm:text-2xl opacity-90 mb-10 max-w-2xl mx-auto animate-fade-in-up delay-200">
             Your one-stop destination for high-quality products and an exceptional shopping experience.
@@ -72,7 +72,7 @@ const App = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold mb-6">Ready to Start Shopping?</h2>
           <p className="text-xl opacity-90 mb-10">
-            Join the MyShop family today and discover a world of amazing products.
+            Join the Artisnaly family today and discover a world of amazing products.
           </p>
           <a
             href="/register"

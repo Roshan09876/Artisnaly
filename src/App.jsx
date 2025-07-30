@@ -10,6 +10,7 @@ import AboutUs from './pages/AboutUs';
 import Products from './pages/Products';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProductById from './pages/ProductById';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/products' element={<Products />} />
+           <Route path='/product/:productId' element={<ProductById />} />
           <Route path='/about' element={<AboutUs />} />
           <Route path='/contact' element={<Contactus />} />
           <Route path='/login' element={<Login />} />
