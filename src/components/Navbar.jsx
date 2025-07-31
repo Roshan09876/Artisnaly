@@ -50,7 +50,9 @@ const Navbar = () => {
               </Link>
             ))}
 
-            <FiShoppingCart className="text-2xl text-gray-800 hover:text-purple-600 cursor-pointer transition-colors duration-200" />
+            <Link to='/cart' >
+              <FiShoppingCart className="text-2xl text-gray-800 hover:text-purple-600 cursor-pointer transition-colors duration-200" />
+            </Link>
 
             {user ? (
               <>
@@ -110,7 +112,9 @@ const Navbar = () => {
 
           <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-200">
             <div className="flex items-center gap-3">
-              <FiShoppingCart className="text-2xl text-gray-800 hover:text-purple-600 cursor-pointer transition-colors duration-200" />
+              <Link to="/cart">
+                <FiShoppingCart className="text-2xl text-gray-800 hover:text-purple-600 cursor-pointer transition-colors duration-200" />
+              </Link>
               <span className="text-gray-800">Shopping Cart</span>
             </div>
 

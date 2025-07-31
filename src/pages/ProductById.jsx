@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductByIDApi } from '../api/api';
-import { Loader2, AlertCircle } from 'lucide-react';
+import { getProductByIDApi, addToCartApi } from '../api/api';
+import { Loader2, AlertCircle, Plus, Minus, ShoppingCart } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const ProductById = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [addingToCart, setAddingToCart] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -25,6 +28,35 @@ const ProductById = () => {
 
     fetchProduct();
   }, [productId]);
+
+  const handleAddToCart = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
+
+    if (!user || !token) {
+      toast.error('Please login to add items to cart.'); 
+      return;
+    }
+
+    try {
+      setAddingToCart(true);
+      const data = {
+        userId: user._id,
+        productId: product._id,
+        quantity,
+      };
+
+      await addToCartApi(data);
+      toast.success('Item added to cart!');
+    } catch (err) {
+      toast.error('Failed to add item to cart.');
+    } finally {
+      setAddingToCart(false);
+    }
+  };
+
+  const increaseQty = () => setQuantity(prev => prev + 1);
+  const decreaseQty = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   if (loading) {
     return (
@@ -89,9 +121,41 @@ const ProductById = () => {
               </div>
             </div>
 
+            {/* Quantity & Add to Cart */}
             <div className="mt-6">
-              <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-3 rounded-xl shadow-sm transition duration-300 ease-in-out">
-                Add to Cart
+              <div className="flex items-center gap-3 mb-4">
+                <button
+                  className="p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition"
+                  onClick={decreaseQty}
+                  disabled={quantity === 1}
+                >
+                  <Minus size={18} />
+                </button>
+                <span className="font-semibold text-lg">{quantity}</span>
+                <button
+                  className="p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition"
+                  onClick={increaseQty}
+                >
+                  <Plus size={18} />
+                </button>
+              </div>
+
+              <button
+                onClick={handleAddToCart}
+                disabled={addingToCart}
+                className="w-full flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-3 rounded-xl shadow-sm transition duration-300 ease-in-out disabled:opacity-50"
+              >
+                {addingToCart ? (
+                  <>
+                    <Loader2 className="animate-spin mr-2" size={18} />
+                    Adding...
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="mr-2" size={18} />
+                    Add to Cart
+                  </>
+                )}
               </button>
             </div>
           </div>
